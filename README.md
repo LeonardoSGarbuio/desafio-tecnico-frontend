@@ -1,119 +1,161 @@
-# 🐉 Dragon Sanctuary — Plataforma de Gerenciamento de Dragões
+# 🐉 Dragon Sanctuary — Plataforma de Gestão de Dragões Ancestrais
 
-Plataforma frontend desenvolvida como solução para o **Desafio Técnico Frontend**, construída com **Next.js 15 (App Router)**, **TypeScript**, **Tailwind CSS**, **GSAP (GreenSock)** e componentes com estética refinada inspirada no tema *"Ancient Drake"*.
-
----
-
-## 🌟 Visão Geral do Projeto
-
-A plataforma é um sistema de controle e catalogação de criaturas dracônicas ancestrais, integrado à API REST pública (`mockapi.io`). O projeto contempla:
-
-- 🔐 **Autenticação com Credenciais Fixas**: Login temático editorial com parallax cinematográfico.
-- 🛡️ **Proteção de Rotas**: Redirecionamento automático de usuários não-autenticados para `/login` e de usuários autenticados para `/dragons`.
-- 📋 **Catálogo Alfabético de Dragões**: Listagem completa ordenada de A a Z diretamente da API, com contadores dinâmicos.
-- 🔍 **Busca em Tempo Real**: Filtragem instantânea por nome ou afinidade elemental.
-- 📖 **Dossiê Detalhado**: Exibição obrigatória de **Nome**, **Tipo** e **Data de Criação**, além das **Crônicas/Habilidades** (`histories`).
-- ✏️ **Cadastro & Edição de Dragões**: Formulário com validação via **Zod** e **React Hook Form**, salvando na API e redirecionando automaticamente.
-- 🗑️ **Banimento de Dragão**: Exclusão segura com diálogo de confirmação contextual e feedback via toasts (**Sonner**).
-- 🌓 **Tema Dark/Light**: Alternância de modo escuro e claro com preservação de contraste e elegância.
-- 🎬 **Animações Fluidas**: Orquestração com **GSAP** (`useGSAP`, timelines e staggers).
-- 🐳 **Containerização Total**: Suporte para execução via **Docker** e **Docker Compose**.
+> Desafio Técnico Frontend — Aplicação de alta fidelidade desenvolvida com **Next.js 15 (App Router)**, **TypeScript**, **Tailwind CSS**, **GSAP (ScrollTrigger)** e **Docker**.
 
 ---
 
-## 🔑 Credenciais de Acesso Padrão
+## 📖 Sobre o Projeto
 
-Conforme solicitado nas instruções do desafio:
+O **Dragon Sanctuary** é uma plataforma concebida para a catalogação, observação e gerenciamento de espécimes ancestrais de dragões. O projeto combina rigor técnico, código limpo e uma experiência de usuário cinematográfica com estética **Clean Glassmorphism**, integrando uma API RESTful remota.
 
-| Campo | Valor |
-|---|---|
-| **E-mail** | `admin@email.com` |
-| **Senha** | `123456` |
+---
 
-> 💡 *Dica:* Na tela de login, há um botão de atalho **"Preencher Demo"** para agilizar a validação.
+## ✨ Funcionalidades Principais
+
+1. **Autenticação & Controle de Acesso**:
+   - Página de login pública e protegida.
+   - Validação com credenciais fixas (`admin@email.com` / `123456`).
+   - Bloqueio automático de rotas internas para usuários não autenticados.
+   - Redirecionamento automático caso já esteja logado.
+   - Botão de atalho para preenchimento de teste ("Preencher demo").
+
+2. **Catálogo Cinematográfico com GSAP ScrollTrigger (`/dragons`)**:
+   - **Pinned Showcase**: A tela fixa-se no viewport e o scroll do usuário navega suavemente entre os espécimes.
+   - **Sidebar Dinâmica**: Nome em destaque, metadados e menu vertical com marcadores que se iluminam conforme o dragão ativo.
+   - **Crossfade de Imagens**: Transição fluida entre as fotografias dos dragões no container visual arredondado.
+   - **Higienização de Dados**:
+     - Ordenação alfabética estrita (conforme exigido pelo desafio).
+     - Filtro contra entradas de teste/lixo da API (nomes com menos de 3 caracteres como "a", "b", "dd").
+     - Deduplicação automática de registros repetidos (ex: múltiplos "Fafnir").
+   - **Responsividade**: Modo split-screen pinado para desktop/tablets e lista fluida de cards de vidro para dispositivos móveis.
+
+3. **Detalhes do Dragão (`/dragons/[id]`)**:
+   - Visualização completa: Nome, tipo/elemento, data e hora de criação formatada em PT-BR.
+   - Painel de crônicas e histórico (`histories`).
+   - Ações diretas de edição e exclusão com modal de confirmação.
+
+4. **Cadastro de Novo Dragão (`/dragons/new`)**:
+   - Formulário com campos de nome e tipo (validação de obrigatoriedade).
+   - Feedback via toasts interativos (*Sonner*).
+   - Redirecionamento imediato para a lista após o salvamento.
+
+5. **Edição de Dragão (`/dragons/[id]/edit`)**:
+   - Carregamento assíncrono dos dados existentes.
+   - Edição de nome e tipo com persistência via `PUT` na MockAPI.
+   - Redirecionamento com notificação de sucesso.
+
+6. **Exclusão Segura**:
+   - Confirmação em 2 etapas via Toast interativo para evitar exclusões acidentais.
+   - Remoção em tempo real na MockAPI e sincronização do estado local.
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Core**: [Next.js 15](https://nextjs.org/) (App Router, Turbopack ready, standalone output)
+- **Linguagem**: [TypeScript 5](https://www.typescriptlang.org/) (Strict mode habilitado)
+- **Estilização**: [Tailwind CSS](https://tailwindcss.com/) com paleta escura e efeitos de vidro fosco (*frosted glass*)
+- **Animações & Motion**: [GSAP 3](https://gsap.com/) + `@gsap/react` + `ScrollTrigger`
+- **Ícones**: [Lucide React](https://lucide.dev/)
+- **Notificações**: [Sonner](https://sonner.emilkowal.ski/)
+- **Containerização**: [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/) (Multi-stage build otimizado)
 
 ---
 
 ## 🚀 Como Executar o Projeto
 
 ### Pré-requisitos
-- **Node.js**: versão 18.18+ (recomendado Node 20 ou 22)
-- **npm** ou **yarn** ou **pnpm**
-- *(Opcional para container)* **Docker** e **Docker Compose**
+- Node.js 18+ e npm **OU** Docker / Docker Desktop
 
 ---
 
-### Opção 1: Executando Localmente (Recomendado para Desenvolvimento)
+### Opção 1: Executar com Docker (Recomendado)
 
-1. **Instale as dependências:**
+1. Clone o repositório e acesse a pasta:
+   ```bash
+   git clone <url-do-repositorio>
+   cd "Desafio tecnico"
+   ```
+
+2. Suba o container com o Docker Compose:
+   ```bash
+   docker compose up --build
+   ```
+
+3. Acesse a aplicação no seu navegador:
+   👉 **http://localhost:3000**
+
+---
+
+### Opção 2: Executar Localmente com Node.js
+
+1. Instale as dependências:
    ```bash
    npm install
    ```
 
-2. **Inicie o servidor de desenvolvimento:**
+2. Execute o servidor de desenvolvimento:
    ```bash
    npm run dev
    ```
 
-3. **Acesse no navegador:**
-   Abra [http://localhost:3000](http://localhost:3000).
-
-4. **Para gerar a build de produção localmente:**
+3. Ou execute a build de produção:
    ```bash
    npm run build
-   npm run start
+   npm start
    ```
+
+4. Acesse:
+   👉 **http://localhost:3000**
 
 ---
 
-### Opção 2: Executando com Docker e Docker Compose
+## 🔐 Credenciais de Acesso
 
-O projeto conta com um `Dockerfile` multi-stage otimizado para produção e um `docker-compose.yml`.
-
-1. **Construir a imagem e subir o container:**
-   ```bash
-   docker-compose up --build -d
-   ```
-
-2. **Acessar a aplicação:**
-   Abra [http://localhost:3000](http://localhost:3000) no seu navegador.
-
-3. **Verificar os logs do container:**
-   ```bash
-   docker-compose logs -f
-   ```
-
-4. **Parar a execução do container:**
-   ```bash
-   docker-compose down
-   ```
+| Campo | Valor |
+|---|---|
+| **E-mail** | `admin@email.com` |
+| **Senha** | `123456` |
 
 ---
 
-## 🧩 Componentes Reutilizáveis Criados
+## 📁 Estrutura de Diretórios
 
-O teste solicitava um mínimo de 3 componentes reutilizáveis. Foram desenvolvidos mais de 8 componentes reutilizáveis:
-
-1. **`<DragonCard />`**: Card de exibição do dragão com thumbnail do selo, badge elemental dinâmico, formatação de data, menu de ações rápidas e diálogo de exclusão integrado.
-2. **`<DragonForm />`**: Formulário polimórfico reutilizado para **Criação** e **Edição**, com validação de esquema Zod, seleção rápida de elementos e tratamento de erros em tempo real.
-3. **`<DragonElementBadge />`**: Badge inteligente que detecta a afinidade do dragão (Fogo, Gelo, Tempestade, Luz, Trevas, etc.) e aplica o ícone e variante cromática correspondentes.
-4. **`<DeleteConfirmDialog />`**: Modal de confirmação para ações destrutivas com tratamento de carregamento assíncrono.
-5. **`<PageHeader />`**: Cabeçalho de página com navegação hierárquica (breadcrumbs/voltar), título estilizado, contadores e slots de ações.
-6. **`<EmptyState />`**: Componente de estado vazio com ilustração customizada, mensagem de contexto e botões de ação ou recarga.
-7. **`<DragonSearchFilter />`**: Barra de busca com limpeza instantânea, ícones e indicador numérico de resultados filtrados vs. total.
-8. **`<DragonHistoryList />`**: Renderizador de crônicas e habilidades em estilo pergaminho.
-9. **`<ThemeToggle />`**: Botão de alternância suave entre os modos claro e escuro.
+```
+├── public/
+│   └── images/              # Ativos visuais e fotografias de paisagens e dragões
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx       # Layout raiz (fontes, meta tags, Toaster)
+│   │   ├── globals.css      # Estilos globais e utilitários de vidro
+│   │   ├── page.tsx         # Página de Login (Glassmorphism clean com Parallax)
+│   │   └── dragons/
+│   │       ├── page.tsx     # Catálogo Pinned com GSAP ScrollTrigger
+│   │       ├── new/         # Página de criação de dragão
+│   │       └── [id]/        # Página de detalhes
+│   │           └── edit/    # Página de edição
+│   ├── lib/
+│   │   ├── gsap.ts          # Inicialização e registro de plugins do GSAP
+│   │   └── utils.ts         # Utilitários de classes Tailwind (clsx + twMerge)
+│   ├── services/
+│   │   └── dragon-api.ts    # Camada de comunicação com a MockAPI
+│   └── types/
+│       └── dragon.ts        # Interfaces TypeScript da entidade Dragon
+├── Dockerfile               # Multi-stage build otimizado para produção
+├── docker-compose.yml       # Orquestração do container Docker
+└── next.config.ts           # Configurações do Next.js (output standalone)
+```
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## 🏛️ Decisões de Design e Arquitetura
 
-- **Next.js 15+** (App Router, Server & Client Components)
-- **TypeScript 5+** (Tipagem estrita)
-- **Tailwind CSS** (Design system utilitário com variáveis HSL)
-- **GSAP & @gsap/react** (Timelines, useGSAP e microinterações de alta performance)
-- **TanStack Query v5** (Gerenciamento de cache, mutações e sincronização com a API)
-- **React Hook Form & Zod** (Validação type-safe de formulários)
-- **Sonner** (Notificações toast elegantes)
-- **Lucide React** (Iconografia consistente)
-- **Docker & Docker Compose** (Containerização multi-estágio)
+1. **Clean Frosted Glass (Vidro Fosco)**:
+   - Utilização de cartões em vidro translúcido com gradientes de opacidade fina (`rgba(255, 255, 255, 0.15)` a `0.05`), desfoque intenso de fundo (*backdrop-blur-2xl*) e bordas de 1px com reflexo especular.
+   - Ausência de poluição de tags, mantendo a interface limpa, moderna e com foco no conteúdo.
+
+2. **Pinned ScrollTrigger (Scroll Cinematográfico)**:
+   - Inspirado em apresentações editoriais de cinema, o usuário fixa a tela e navega pela lista de dragões com uma barra lateral sincronizada, enquanto a moldura fotográfica central realiza crossfade das imagens.
+
+3. **Resiliência de Dados da API**:
+   - A MockAPI pública continha diversos testes com caracteres avulsos ("a", "b", "dd") e dragões repetidos. Implementou-se uma camada de higienização que deduplica por nome e filtra ruídos, entregando sempre uma listagem alfabética coerente e limpa.

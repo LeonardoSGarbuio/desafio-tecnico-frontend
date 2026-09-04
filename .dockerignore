@@ -2,8 +2,12 @@ node_modules
 .next
 .git
 .gitignore
-*.md
-.vscode
-.gemini
+README.md
+Dockerfile
+docker-compose.yml
+.user_uploaded
 skills
+axion-ai.aura.build
+flux-motion.aura.build
+desafio tecnico.pdf
 img

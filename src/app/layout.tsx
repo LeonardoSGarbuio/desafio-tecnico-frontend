@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Cinzel, Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import { AppProviders } from "@/providers/app-providers";
+import { Toaster } from "sonner";
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -25,7 +25,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "Dragon Sanctuary — Plataforma de Gerenciamento de Dragões",
   description:
-    "Plataforma de alta fidelidade para catalogação, monitoramento e gerenciamento de dragões ancestrais.",
+    "Plataforma de alta fidelidade para catalogação e gerenciamento de dragões ancestrais.",
   icons: {
     icon: "/images/dragon-emblem.webp",
   },
@@ -42,8 +42,19 @@ export default function RootLayout({
       className={`${cinzel.variable} ${cormorant.variable} ${plusJakarta.variable} dark`}
       suppressHydrationWarning
     >
-      <body className="min-h-screen bg-background text-foreground font-sans antialiased overflow-x-hidden">
-        <AppProviders>{children}</AppProviders>
+      <body
+        className="min-h-screen bg-background text-foreground font-sans antialiased overflow-x-clip"
+        suppressHydrationWarning
+      >
+        {children}
+        <Toaster
+          position="top-center"
+          richColors
+          theme="dark"
+          toastOptions={{
+            className: "font-sans border border-emerald-500/30 bg-card text-foreground shadow-2xl",
+          }}
+        />
       </body>
     </html>
   );
